@@ -1,179 +1,126 @@
 # QuickInvoice
 
+![QuickInvoice Banner](assets/banner.png)
+
 Production-ready invoice management SaaS for freelancers and small businesses.
 
-![QuickInvoice](https://img.shields.io/badge/QuickInvoice-v1.0.0-6C63FF)
+![Version](https://img.shields.io/badge/version-1.0.0-blue.svg)
+![License](https://img.shields.io/badge/license-MIT-green.svg)
+![Next.js](https://img.shields.io/badge/Next.js-14-black.svg)
+![Supabase](https://img.shields.io/badge/Supabase-v2-3ECF8E.svg)
 
-## Tech Stack
+## 🚀 Overview
 
-| Layer | Technology |
-|-------|-----------|
-| Frontend | Next.js 14 (App Router), TypeScript, Tailwind CSS v3 |
-| State | TanStack Query v5, React Hook Form + Zod |
-| UI | Framer Motion, Lucide React, next-themes, sonner |
-| PDF | @react-pdf/renderer (multi-page) |
-| Backend | Node.js, Express, TypeScript |
-| Database | Supabase (Postgres + Auth + Storage) |
-| Email | Resend SDK |
+QuickInvoice is a comprehensive solution designed to streamline the billing process for modern professionals. From invoice generation with live PDF previews to automated email notifications and client management, QuickInvoice provides everything needed to manage business finances efficiently.
 
-## Project Structure
+## ✨ Key Features
 
-```
-quickinvoice/
-├── apps/
-│   ├── web/          # Next.js 14 frontend
-│   │   ├── app/      # App Router pages
-│   │   ├── components/  # UI, layout, invoice, dashboard, pdf
-│   │   ├── hooks/    # TanStack Query hooks
-│   │   ├── lib/      # API client, Supabase, utilities
-│   │   └── types/    # Shared TypeScript types
-│   └── api/          # Express backend
-│       └── src/
-│           ├── controllers/
-│           ├── middleware/
-│           ├── routes/
-│           ├── schemas/
-│           ├── services/
-│           └── lib/
-└── supabase/
-    └── migrations/   # SQL migration files
-```
+### 📊 Professional Dashboard
+- **Revenue Insights**: Track your performance with detailed revenue overview and trend indicators.
+- **Visual Analytics**: Interactive monthly revenue charts for the last 6 months.
+- **Activity Feed**: Stay updated with a table of recent invoices and quick action shortcuts.
 
-## Getting Started
+### 📝 Smart Invoice Management
+- **Live PDF Preview**: See changes in real-time as you build your invoice.
+- **Dynamic Line Items**: Drag-and-drop reordering for maximum flexibility.
+- **Automatic Calculations**: Instant subtotal, tax, and discount computations.
+- **Multi-page Support**: Professional A4 PDF generation that scales with your content.
+- **Status Lifecycle**: Track invoices from Draft → Sent → Viewed → Paid.
+- **Digital Signatures**: Add a personal touch with integrated signature support.
+
+### 👥 Client & Inventory Management
+- **CRM Lite**: Manage clients with dedicated profiles and full invoice histories.
+- **Inventory Tracking**: (Experimental) Keep track of your products and services for faster invoicing.
+- **Bulk Import**: Support for CSV-based inventory imports.
+
+### ⚙️ Business Personalization
+- **Profile Management**: Custom business details including logo, address, and contact info.
+- **Smart Defaults**: Configure default currency, payment terms, and invoice prefixes.
+- **Storage Integration**: Secure logo and document storage via Supabase.
+
+## 🛠️ Tech Stack
+
+### Frontend
+- **Framework**: [Next.js 14](https://nextjs.org/) (App Router)
+- **Styling**: [Tailwind CSS](https://tailwindcss.com/)
+- **Animations**: [Framer Motion](https://www.framer.com/motion/)
+- **Form Handling**: [React Hook Form](https://react-hook-form.com/) + [Zod](https://zod.dev/)
+- **Data Fetching**: [TanStack Query v5](https://tanstack.com/query/latest)
+- **Icons**: [Lucide React](https://lucide.dev/)
+
+### Backend
+- **Runtime**: [Node.js](https://nodejs.org/)
+- **Server**: [Express](https://expressjs.com/) with TypeScript
+- **ORM**: [Prisma](https://www.prisma.io/)
+- **Caching**: [Redis](https://redis.io/) (via ioredis)
+- **Email**: [Nodemailer](https://nodemailer.com/) / [Resend](https://resend.com/)
+- **PDF Generation**: [@react-pdf/renderer](https://react-pdf.org/)
+
+### Infrastructure
+- **Database**: [Supabase](https://supabase.com/) (PostgreSQL)
+- **Auth**: Supabase Auth (JWT & Magic Links)
+- **Storage**: Supabase Storage
+
+## 🏁 Getting Started
 
 ### Prerequisites
-
 - Node.js 18+
 - npm 9+
-- A [Supabase](https://supabase.com) project
-- A [Resend](https://resend.com) account (for email)
+- A Supabase Project
+- Redis Instance (optional for local dev, recommended for prod)
 
-### 1. Clone and Install
-
+### 1. Installation
 ```bash
-# Install root dependencies
+# Clone the repository
+git clone https://github.com/AmanTiwari404/quickinvoice.git
+cd quickinvoice
+
+# Install dependencies for all workspaces
 npm install
-
-# Install web dependencies
-cd apps/web && npm install && cd ../..
-
-# Install API dependencies
-cd apps/api && npm install && cd ../..
 ```
 
-### 2. Set Up Supabase
+### 2. Environment Setup
+Create `.env` files in the respective directories:
 
-1. Create a new project at [supabase.com](https://supabase.com)
-2. Go to **SQL Editor** and run the migration file:
-   ```
-   supabase/migrations/001_initial.sql
-   ```
-3. Copy your project URL and keys from **Settings > API**
-
-### 3. Configure Environment Variables
-
-**Frontend** (`apps/web/.env.local`):
+**Web (`apps/web/.env.local`)**:
 ```env
-NEXT_PUBLIC_SUPABASE_URL=your-supabase-url
-NEXT_PUBLIC_SUPABASE_ANON_KEY=your-anon-key
+NEXT_PUBLIC_SUPABASE_URL=your_supabase_url
+NEXT_PUBLIC_SUPABASE_ANON_KEY=your_anon_key
 NEXT_PUBLIC_API_URL=http://localhost:3001/api
 ```
 
-**Backend** (`apps/api/.env`):
+**API (`apps/api/.env`)**:
 ```env
-SUPABASE_URL=your-supabase-url
-SUPABASE_SERVICE_ROLE_KEY=your-service-role-key
-RESEND_API_KEY=your-resend-api-key
 PORT=3001
+SUPABASE_URL=your_supabase_url
+SUPABASE_SERVICE_ROLE_KEY=your_service_role_key
+DATABASE_URL=your_postgres_connection_string
+REDIS_URL=your_redis_url
+SMTP_HOST=your_smtp_host
+SMTP_USER=your_smtp_user
+SMTP_PASS=your_smtp_pass
 FRONTEND_URL=http://localhost:3000
-STORAGE_BUCKET=invoices
 ```
 
-### 4. Run Development Servers
+### 3. Database Initialization
+Run the following script in your Supabase SQL Editor to set up the schema:
+- `supabase/setup_fresh_database.sql`
 
+### 4. Running Locally
 ```bash
-# Start both frontend and backend simultaneously
+# Start both frontend and backend
 npm run dev
 
-# Or start individually:
-npm run dev:web   # Next.js on http://localhost:3000
-npm run dev:api   # Express on http://localhost:3001
+# Or start individually
+npm run dev:web
+npm run dev:api
 ```
 
-### 5. Open the App
+## 📜 License
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-Visit [http://localhost:3000](http://localhost:3000) and create an account.
+## 🤝 Contributing
+Contributions are welcome! Please feel free to submit a Pull Request.
 
-## Features
-
-### Authentication
-- Email + password registration/login
-- Magic link authentication
-- JWT-based API authentication
-
-### Dashboard
-- Revenue overview with trend indicators
-- Monthly revenue chart (last 6 months)
-- Recent invoices table
-- Quick action buttons
-
-### Invoice Management
-- Create invoices with live PDF preview
-- Drag-and-drop line items reordering
-- Auto-calculated totals (subtotal, tax, discount)
-- Multi-page PDF generation (A4 format)
-- Send invoices via email with PDF attachment
-- Status tracking (Draft → Sent → Viewed → Paid)
-- Invoice filtering, searching, and sorting
-- Auto-generated invoice numbers
-
-### Client Management
-- Client cards with invoice summary stats
-- Side drawer for add/edit
-- Client detail with full invoice history
-
-### Settings
-- Business profile (name, email, address, logo)
-- Invoice defaults (currency, payment terms, prefix)
-- Notification preferences
-- Logo upload to Supabase Storage
-
-### Design System
-- Custom violet-based color palette
-- Dark mode support (system/manual toggle)
-- Inter font family
-- Responsive layout with collapsible sidebar
-- Framer Motion micro-animations
-- Sonner toast notifications
-
-## API Endpoints
-
-| Method | Endpoint | Description |
-|--------|----------|-------------|
-| POST | `/api/auth/register` | Register new user |
-| POST | `/api/auth/login` | Login |
-| POST | `/api/auth/magic-link` | Send magic link |
-| GET | `/api/auth/me` | Get current user |
-| GET | `/api/invoices` | List invoices (filterable) |
-| POST | `/api/invoices` | Create invoice |
-| GET | `/api/invoices/:id` | Get invoice detail |
-| PUT | `/api/invoices/:id` | Update invoice |
-| DELETE | `/api/invoices/:id` | Delete invoice |
-| PATCH | `/api/invoices/:id/status` | Update status |
-| POST | `/api/invoices/:id/send` | Send via email |
-| POST | `/api/invoices/:id/generate-pdf` | Generate PDF |
-| GET | `/api/invoices/next-number` | Get next number |
-| GET | `/api/clients` | List clients |
-| POST | `/api/clients` | Create client |
-| GET | `/api/clients/:id` | Client detail |
-| PUT | `/api/clients/:id` | Update client |
-| DELETE | `/api/clients/:id` | Delete client |
-| GET | `/api/settings` | Get profile |
-| PUT | `/api/settings` | Update profile |
-| POST | `/api/settings/logo` | Upload logo |
-| GET | `/api/dashboard/stats` | Dashboard stats |
-| GET | `/api/dashboard/revenue` | Revenue chart data |
-
-## License
-
-MIT
+---
+Built with ❤️ by [AmanTiwari404](https://github.com/AmanTiwari404)
